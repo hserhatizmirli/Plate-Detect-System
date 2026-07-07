@@ -1,0 +1,13 @@
+train: C:/Users/HSİ/Desktop/Plaka Tanıma Sistemi/Dataset/train/images
+val: C:/Users/HSİ/Desktop/Plaka Tanıma Sistemi/Dataset/valid/images
+test: C:/Users/HSİ/Desktop/Plaka Tanıma Sistemi/Dataset/test/images
+
+nc: 1
+names: ['plaka']
+
+roboflow:
+  workspace: serhats-workspace-tkvc9
+  project: plaka-djmpa-wlkdw
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/serhats-workspace-tkvc9/plaka-djmpa-wlkdw/dataset/2
