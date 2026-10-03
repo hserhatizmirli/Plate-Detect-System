@@ -1,13 +1,13 @@
-================================================================================
-  ██████╗ ██╗      █████╗ ████████╗███████╗    ██████╗ ███████╗████████╗
-  ██╔══██╗██║     ██╔══██╗╚══██╔══╝██╔════╝    ██╔══██╗██╔════╝╚══██╔══╝
-  ██████╔╝██║     ███████║   ██║   █████╗      ██║  ██║█████╗     ██║   
-  ██╔═══╝ ██║     ██╔══██║   ██║   ██╔══╝      ██║  ██║██╔══╝     ██║   
-  ██║     ███████╗██║  ██║   ██║   ███████╗    ██████╔╝███████╗   ██║   
-  ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═════╝ ╚══════╝   ╚═╝   
-================================================================================
-           PLATE-DETECT-SYSTEM - GERÇEK ZAMANLI PLAKA TANIMA (ALPR)
-================================================================================
+=========================================================
+ ██████╗ ██╗      █████╗ ██╗  ██╗ █████╗ 
+ ██╔══██╗██║     ██╔══██╗██║ ██╔╝██╔══██╗
+ ██████╔╝██║     ███████║█████╔╝ ███████║
+ ██╔═══╝ ██║     ██╔══██║██╔═██╗ ██╔══██║
+ ██║     ███████╗██║  ██║██║  ██╗██║  ██║
+ ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+=========================================================
+   PLATE-DETECT-SYSTEM - GERÇEK ZAMANLI PLAKA TANIMA
+=========================================================
 
 [ PROJE GENEL BAKIŞI ] 
 Bilgisayarınızın veya yerel ağdaki bir cihazın kamerasını kullanarak araç plakalarını gerçek zamanlı olarak tespit eden ve metne dönüştüren web tabanlı bir sistemdir. YOLO11 nesne tespiti ve EasyOCR motorunun gücünü birleştiren bu proje, zorlu çevre koşullarına karşı gelişmiş OpenCV görüntü ön işleme (CLAHE, Otsu, Morfoloji) teknikleriyle OCR başarısını maksimize eder.
@@ -56,4 +56,4 @@ Sistem kameradan yakalanan hedef kareyi Base64 formatında (/detect) alır ve ya
 4. Tarayıcınızdan sisteme erişin: 
    http://localhost:5000 veya yerel ağ IP'niz üzerinden giriş yapın. 
    (Kamera erişim izni istendiğinde onay verin.)
-================================================================================
+=========================================================
