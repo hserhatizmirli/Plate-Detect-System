@@ -1,27 +1,21 @@
-=========================================================
- ██████╗ ██╗      █████╗ ██╗  ██╗ █████╗ 
- ██╔══██╗██║     ██╔══██╗██║ ██╔╝██╔══██╗
- ██████╔╝██║     ███████║█████╔╝ ███████║
- ██╔═══╝ ██║     ██╔══██║██╔═██╗ ██╔══██║
- ██║     ███████╗██║  ██║██║  ██╗██║  ██║
- ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-=========================================================
-   PLATE-DETECT-SYSTEM - GERÇEK ZAMANLI PLAKA TANIMA
-=========================================================
+🚗 Plate-Detect-System (Gerçek Zamanlı Plaka Tanıma)
+Bilgisayarınızın veya yerel ağdaki bir cihazın kamerasını kullanarak araç plakalarını gerçek zamanlı olarak tespit eden ve metne dönüştüren web tabanlı bir sistemdir. YOLO11 nesne tespiti ve EasyOCR motorunun gücünü birleştiren bu proje, zorlu çevre koşullarına karşı gelişmiş OpenCV görüntü ön işleme teknikleriyle OCR başarısını maksimize eder.
 
-[ PROJE GENEL BAKIŞI ] 
-Bilgisayarınızın veya yerel ağdaki bir cihazın kamerasını kullanarak araç plakalarını gerçek zamanlı olarak tespit eden ve metne dönüştüren web tabanlı bir sistemdir. YOLO11 nesne tespiti ve EasyOCR motorunun gücünü birleştiren bu proje, zorlu çevre koşullarına karşı gelişmiş OpenCV görüntü ön işleme (CLAHE, Otsu, Morfoloji) teknikleriyle OCR başarısını maksimize eder.
+✨ Temel Özellikler
+⚡ Gerçek Zamanlı Tespit: Flask-SocketIO (Eventlet) ile kamera akışından gelen kareler asenkron olarak arka plana iletilir ve anlık olarak işlenir.
 
-[ TEMEL ÖZELLİKLER ]
-- Gerçek Zamanlı Tespit: Flask-SocketIO (Eventlet) ile kamera akışından gelen kareler asenkron olarak arka plana iletilir ve anlık olarak işlenir.
-- Yüksek Hassasiyet (YOLO11): Sadece %70 güven (confidence) eşiğini geçen plaka tespitleri işleme alınır. OCR'ın metni daha rahat okuması için plaka bölgesi (ROI) kenarlardan 5'er piksel genişletilir.
-- Gelişmiş Görüntü Ön İşleme: Kırpılan plaka bölgesi gri tonlamaya çevrilir, çözünürlüğü 2 kat (CUBIC) büyütülür, CLAHE ile kontrast dengelenir ve Morfolojik (Açma/Kapama) işlemlerle yazılar pürüzsüzleştirilir.
-- Akıllı Karakter Düzeltme (Regex): OCR'ın sık yaptığı O ve 0 karışıklığı Türkiye plaka formatına (İl kodu + Harf + Rakam) göre otomatik onarılır. İl kodunun 01-81 aralığında olup olmadığı doğrulanır.
-- Otomatik Arşivleme: Doğrulanan plakalar, zaman damgası ve plaka adıyla birlikte yerel diskinizdeki 'Tespitler' klasörüne (.jpg) kaydedilir.
+🎯 Yüksek Hassasiyet (YOLO11): Sadece %70 güven eşiğini geçen plaka tespitleri işleme alınır. OCR'ın metni daha rahat okuması için plaka bölgesi (ROI) kenarlardan 5'er piksel genişletilir.
 
-[ GİRDİ VE ÇIKTI (Örnek API Yanıtı) ] 
-Sistem kameradan yakalanan hedef kareyi Base64 formatında (/detect) alır ve yapılandırılmış bir JSON objesi döndürür:
+🖼️ Gelişmiş Görüntü Ön İşleme: Kırpılan plaka bölgesi gri tonlamaya çevrilir, çözünürlüğü 2 kat büyütülür (CUBIC), CLAHE ile kontrast dengelenir ve morfolojik işlemlerle yazılar pürüzsüzleştirilir.
 
+🧠 Akıllı Karakter Düzeltme: OCR'ın sık yaptığı O ve 0 karışıklığı, Türkiye plaka formatına (İl Kodu + Harf + Rakam) göre Regex ile otomatik onarılır. İl kodunun 01-81 aralığında olup olmadığı denetlenir.
+
+📁 Otomatik Arşivleme: Doğrulanan plakalar; zaman damgası ve plaka adıyla birlikte yerel diskinizdeki Tespitler klasörüne otomatik olarak kaydedilir.
+
+📥 Girdi ve Çıktı (Örnek API Yanıtı)
+Sistem kameradan yakalanan hedef kareyi Base64 formatında (/detect endpointi ile) alır ve aşağıdaki gibi yapılandırılmış bir JSON objesi döndürür:
+
+JSON
 { 
   "success": true, 
   "plate_info": { 
@@ -32,28 +26,31 @@ Sistem kameradan yakalanan hedef kareyi Base64 formatında (/detect) alır ve ya
   }, 
   "annotated_image": "base64_kodlanmis_cizgili_gorsel_verisi..." 
 }
+📂 Proje Yapısı
+📄 app.py: Web sunucusunu (Flask), YOLO11 ve EasyOCR modellerini çalıştıran, görüntü işleme ve Regex mantığını barındıran ana arka uç dosyasıdır.
 
-[ PROJE YAPISI ]
-- app.py : Web sunucusunu (Flask), YOLO11 ve EasyOCR modellerini çalıştıran, görüntü işleme ve Regex mantığını barındıran ana dosyadır.
-- templates/index.html : Kamerayı açan, video karelerini arka plana ileten ve plaka geçmişini (history) listeleyen arayüz.
-- best.pt : Özel olarak eğitilmiş YOLO11 plaka tespit ağırlığı.
-- Tespitler/ : Başarıyla okunan plakaların arşivlendiği klasör.
+🖥️ templates/index.html: Kamerayı açan, video karelerini arka plana ileten ve plaka geçmişini listeleyen kullanıcı arayüzü.
 
-[ KURULUM VE ÇALIŞTIRMA ] 
-(Not: Hızlı OCR okuması için NVIDIA GPU (CUDA) tavsiye edilir.)
+🧠 best.pt: Proje için özel olarak eğitilmiş YOLO11 plaka tespit ağırlığı.
 
-1. Depoyu indirin ve klasöre girin: 
-   git clone https://github.com/hserhatizmirli/Plate-Detect-System.git 
-   cd Plate-Detect-System
+🖼️ Tespitler/: Başarıyla okunan plakaların görsellerinin arşivlendiği klasör.
 
-2. Bağımlılıkları (requirements) yükleyin: 
-   pip install flask flask-socketio flask-cors easyocr ultralytics opencv-python numpy polars
+🛠️ Kurulum ve Çalıştırma
+💡 Not: Sistemin ve OCR motorunun çok daha hızlı çalışması için bilgisayarınızda bir NVIDIA GPU (CUDA) bulunması tavsiye edilir, ancak sistem CPU ile de çalışmaktadır.
 
-3. Dosya yollarını ayarlayın ve uygulamayı başlatın: 
-   (app.py içindeki MODEL_PATH ve SAVE_DIR yollarını bilgisayarınıza göre düzenledikten sonra aşağıdaki komutu çalıştırın) 
-   python app.py
+1. Depoyu bilgisayarınıza klonlayın ve dizine girin:
 
-4. Tarayıcınızdan sisteme erişin: 
-   http://localhost:5000 veya yerel ağ IP'niz üzerinden giriş yapın. 
-   (Kamera erişim izni istendiğinde onay verin.)
-=========================================================
+Bash
+git clone https://github.com/hserhatizmirli/Plate-Detect-System.git 
+cd Plate-Detect-System
+2. Gerekli Python kütüphanelerini yükleyin:
+
+Bash
+pip install flask flask-socketio flask-cors easyocr ultralytics opencv-python numpy polars
+3. Dosya yollarını ayarlayın ve uygulamayı başlatın:
+(app.py dosyası içindeki MODEL_PATH ve SAVE_DIR yollarını kendi bilgisayarınıza göre düzenlemeyi unutmayın.)
+
+Bash
+python app.py
+4. Tarayıcınızdan sisteme erişin:
+Uygulama başladıktan sonra tarayıcınızdan http://localhost:5000 veya yerel ağ IP'niz üzerinden giriş yapın. Kamera erişim izni istendiğinde onay vererek sistemi kullanmaya başlayabilirsiniz.
